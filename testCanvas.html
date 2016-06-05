@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 transitional//EN"
+"http://www.w3.org/TR/HTML4.01/loose/dtd">
+<html id="hyper">
+
+<head><title> testCanvas </title> <!-- http://validator.w3.org -->
+<meta http-equiv="cache-control" content="no-store, no-cache">
+<meta charset="utf-8">
+<style type="text/css">
+.check {
+	background: linear-gradient(to bottom left, teal, white);
+	bottom: 8px;
+	float: right; 
+	position: fixed; 
+	resize: none;
+	right: 9px;
+}
+noscript {
+	color: red; 
+	font-size: 2em;
+	font-style: italic; 
+	margin-left: 450px;
+}
+
+* {
+
+/*	cursor: url(http://ani.cursors-4u.net/cursors/cur-12/cur1103.ani), 
+	url(http://ani.cursors-4u.net/cursors/cur-12/cur1103.png), progress;   */
+}
+
+body {
+	background: #DDD;
+	bottom: 0;
+	left: 0;
+	margin: 0px;
+	position: absolute;
+	padding-left: 30px;
+	padding-top: 10px;
+	right: 0;
+	top: 0;
+}
+#wrap {
+	background-color: black; 
+	border: 1px solid;
+	height: 400px; 
+	overflow: hidden; 
+	position: absolute; 
+	width: 400px; 	
+	z-index: 1;
+}
+
+div:hover img {  opacity: 1;  }
+div:hover {  background-color: none;  }
+#mycanvas {
+border: 2px dotted black;
+float: right;
+}
+</style>
+</head>
+
+<body>
+<textarea class="check" id="check1">script is failed</textarea>
+<img src="http://u2.abo.com.ua/image/0F502/samurai-new-skateboard.jpg">
+<canvas width="300px" height="300px" id="mycanvas">
+Ваш браузер не поддерживает canvas
+</canvas>
+<div id="color" style="width: 200px; height: 50px; float: right; border: 1px solid"></div>
+</body>
+<noscript>JavaScript is disabled</noscript> 
+<script type="text/javascript">
+var scriptCondition=document.getElementById("check1");
+var canvas=document.getElementById("mycanvas");
+var ctx=canvas.getContext("2d");
+var img=new Image();
+img.src="http://u2.abo.com.ua/image/0F502/samurai-new-skateboard.jpg";
+//img.src="red.jpg";
+img.onload=function () {
+  ctx.drawImage(img,0,0);
+  img.style.display="none"; //?
+}
+var color=document.getElementById("color");
+
+function pick(event) {
+  var x=event.layerX;
+  var y=event.layerY;
+  var pixel=ctx.getImageData(x,y,1,1);
+  var data=pixel.data;
+  var rgba="rgba(" + data[0] + "," + data[1] +
+  "," + data[2] + ")";
+  //+ "," + data[3] + ")";
+  color.style.bacground=rgba;
+  color.textContent=rgba;  
+}
+canvas.addEventListener("mousemove", pick);
+scriptCondition.value="script is working";
+//http://fotoham.ru/img/picture/Apr/22/0c944372c13fdf269d4d54df04b0a06c/1.jpg
+//#FFFFFF = RGB(255,255,255) = white //not registered;
+//#FF0000 = red
+//#00FF00 = green
+//#0000FF = blue
+// +a //to number
+// a+""//to string, ?
+// !!a //to boolean
+//alert(+undefined) //NaN
+//alert(+null) // 0
+//alert (undeined==null) //true
+//$(селектор).метод();
+</script>
+</html>
